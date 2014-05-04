@@ -16,10 +16,10 @@ namespace HeatCodes
         {
             if(debug)
             {
-                rootPath = "C:\\Users\\submarines\\Dropbox\\HeatCodes\\Tree\\";
+                rootPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\";
             }
             else{
-                rootPath = "\\\\UMACSERVER\\Group-HeatCore\\20_Produkt\\Ritningar";
+                rootPath = @"\\UMACSERVER\Group-HeatCore\20_Produkt\";
             }
         }
 
