@@ -32,9 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DYMO.Label.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5426002a38745af9, processorArchitecture=MSIL" />
-    <Reference Include="Gma.QrCodeNet.Encoding.Net45">
-      <HintPath>..\..\..\..\..\Downloads\QrCode.Net 0.4 Pre-Release\Gma.QrCodeNet.Encoding.Net45\Gma.QrCodeNet.Encoding.Net45.dll</HintPath>
+    <Reference Include="DYMO.Label.Framework">
+      <HintPath>..\Framework\DYMO.Label.Framework.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
