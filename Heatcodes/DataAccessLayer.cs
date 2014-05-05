@@ -23,7 +23,7 @@ namespace HeatCodes
             else{
                 rootPath = @"\\umacserver\Group-HeatCore\20_Produkt\";
                  laserPath = @"Laser\";
-                drawingPath = @"Las\";
+                 drawingPath = @"Ritning\PDC v2.1\";
             }
         }
 
@@ -55,8 +55,9 @@ namespace HeatCodes
         {
           //  try
          //   {
-                UpdateDrawings();
-                UpdateLasers();
+            UpdateLasers();
+            UpdateDrawings();
+                
          /*   }
             catch (IOException)
             {
@@ -68,27 +69,40 @@ namespace HeatCodes
         private void UpdateLasers()
         {
             laserList.Clear();
-            foreach (var file in Directory.EnumerateFiles(RootPath + LaserPath))
+            foreach (var file in Directory.GetFiles(RootPath + LaserPath))
             {
                 laserList.Add(RemoveFullPath(file, 1));
+            }
 
+        }
+
+        private void UpdateDrawings()
+        {
+            laserList.Clear();
+            foreach (var file in Directory.GetFiles(RootPath + DrawingPath))
+            {
+                MessageBox.Show(file);
+                List<string> list= new List<string>();
+                list.Add(RemoveFullPath(file, 1));
+                drawingList.Add(list);
             }
 
         }
 
 
 
-        private void UpdateDrawings()
+        private void UpdateDrawings2()
         {
+            string path = RootPath + DrawingPath;
             drawingList.Clear();
             string[] fileList;
 
-            var dirInfo = new DirectoryInfo(RootPath + DrawingPath);
+            var dirInfo = new DirectoryInfo(path);
             FileInfo[] files = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
 
             if (dirInfo.Exists)
             {
-                fileList = Directory.GetFiles(RootPath + DrawingPath, "*.*", SearchOption.AllDirectories);
+                fileList = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
 
                 foreach (string currentFile in fileList)
                 {
