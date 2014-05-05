@@ -115,7 +115,7 @@ namespace HeatCodes
             {
                 rev = "Rev0";
             }
-            string path = Controller.RootPath + "Ritningar\\"
+            string path = Controller.RootPath + Controller.DrawingPath
                        + drawingCB.SelectedItem
                        + rev
                        + revisionCB.SelectedItem
@@ -126,11 +126,13 @@ namespace HeatCodes
 
         private void PreviewLaser()
         {
-           
-            string path = Controller.RootPath + "Laser\\"
+         
+
+            string path = Controller.RootPath + Controller.LaserPath
                        + laserCB.SelectedItem
                        + ".csv";
 
+           // MessageBox.Show(path);
             try
             {
                 StreamReader sr = new StreamReader(path);

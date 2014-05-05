@@ -29,9 +29,13 @@ namespace HeatCodes
         public List<List<string>> Drawings { get { return dal.Drawings; } set { dal.Drawings = value; } }
         public List<string> Lasers { get { return dal.Lasers; }  set { dal.Lasers = value; } }
 
+        //paths
+        public string RootPath { get { return dal.RootPath; } }
+        public string LaserPath { get { return dal.LaserPath; } }
+        public string DrawingPath { get { return dal.DrawingPath; } }
+
         //misc? lol
         public string BrowseFile() { return dal.BrowseFile(); }
-        public string RootPath { get { return dal.RootPath; } }
         public string RemoveFullPath(string input, int count) { return dal.RemoveFullPath(input, count); }
 
 

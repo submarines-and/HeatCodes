@@ -10,25 +10,30 @@ namespace HeatCodes
 {
     class DataAccessLayer
     {
-        bool debug = true;
+        bool debug = false;
 
         public DataAccessLayer()
         {
             if(debug)
             {
                 rootPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\";
+                laserPath = @"Laser\";
+                drawingPath = @"Ritningar\";
             }
             else{
-                rootPath = @"\\UMACSERVER\Group-HeatCore\20_Produkt\";
+                rootPath = @"\\umacserver\Group-HeatCore\20_Produkt\";
+                 laserPath = @"Laser\";
+                drawingPath = @"Las\";
             }
         }
 
         private readonly string rootPath;
+        private readonly string laserPath;
+        private readonly string drawingPath;
+        public string RootPath { get { return rootPath; } }
+        public string LaserPath { get { return laserPath; } }
+        public string DrawingPath { get { return drawingPath; } }
 
-        public string RootPath
-        {
-            get { return rootPath; }
-        }
 
 
         private List<string> laserList = new List<string>();
@@ -48,38 +53,47 @@ namespace HeatCodes
 
         public void Refresh()
         {
-            try
-            {
+          //  try
+         //   {
                 UpdateDrawings();
                 UpdateLasers();
-            }
+         /*   }
             catch (IOException)
             {
                 throw new NetworkException("Servern verkar vara nere...");
-            }
+            }*/
         }
 
         
         private void UpdateLasers()
         {
-            foreach (string i in Directory.GetFiles(rootPath + "Laser"))
+            laserList.Clear();
+            foreach (var file in Directory.EnumerateFiles(RootPath + LaserPath))
             {
-                laserList.Add(RemoveFullPath(i, 1));
+                laserList.Add(RemoveFullPath(file, 1));
 
             }
 
         }
 
 
+
         private void UpdateDrawings()
         {
             drawingList.Clear();
+            string[] fileList;
 
-            foreach (string i in Directory.GetDirectories(rootPath + "Ritningar"))
+            var dirInfo = new DirectoryInfo(RootPath + DrawingPath);
+            FileInfo[] files = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
+
+            if (dirInfo.Exists)
             {
-                foreach (String j in Directory.GetFiles(i))
+                fileList = Directory.GetFiles(RootPath + DrawingPath, "*.*", SearchOption.AllDirectories);
+
+                foreach (string currentFile in fileList)
                 {
-                    string split = RemoveFullPath(j, 2);
+
+                    string split = RemoveFullPath(currentFile, 2);
 
                     if (split.Contains("90"))
                     {
@@ -122,11 +136,13 @@ namespace HeatCodes
 
                     }
 
+
+
                 }
 
             }
         }
-
+        
         public string RemoveFullPath(string input, int count)
         {
             if (input != null)
