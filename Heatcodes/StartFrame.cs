@@ -111,10 +111,10 @@ namespace HeatCodes
 
         private void PreviewDrawing()
         {
-            string rev = "Rev";
+            string rev = "rev";
             if (revisionCB.SelectedItem == null)
             {
-                rev = "Rev0";
+                rev = "rev0";
             }
             string path = Controller.RootPath + Controller.DrawingPath
                        + drawingCB.SelectedItem
