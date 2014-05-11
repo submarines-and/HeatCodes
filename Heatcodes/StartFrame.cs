@@ -25,8 +25,7 @@ namespace HeatCodes
         {
             Controller = new Controller();
             InitializeComponent();
-
-           
+    
         }
 
    
@@ -50,6 +49,7 @@ namespace HeatCodes
             }
             catch (ArgumentOutOfRangeException)
             {
+
             }
 
         }
@@ -127,8 +127,6 @@ namespace HeatCodes
 
         private void PreviewLaser()
         {
-         
-
             string path = Controller.RootPath + Controller.LaserPath
                        + laserCB.SelectedItem
                        + ".csv";
@@ -152,6 +150,7 @@ namespace HeatCodes
             }
             catch (DirectoryNotFoundException)
             {
+
             }
             
         }
