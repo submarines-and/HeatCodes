@@ -10,7 +10,7 @@ namespace HeatCodes
 {
     class DataAccessLayer
     {
-        bool debug = false;
+        bool debug = true;
 
         public DataAccessLayer()
         {
