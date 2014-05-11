@@ -61,6 +61,7 @@ namespace HeatCodes
             foreach (string s in Controller.Lasers)
             {
                 laserCB.Items.Add(s);
+
             }
             try
             {
@@ -132,7 +133,6 @@ namespace HeatCodes
                        + laserCB.SelectedItem
                        + ".csv";
 
-           // MessageBox.Show(path);
             try
             {
                 StreamReader sr = new StreamReader(path);

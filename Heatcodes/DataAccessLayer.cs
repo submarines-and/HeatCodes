@@ -25,6 +25,7 @@ namespace HeatCodes
                  laserPath = @"Laser\";
                  drawingPath = @"Ritning\PDC v2.1\";
             }
+
         }
 
         private readonly string rootPath;
@@ -53,16 +54,17 @@ namespace HeatCodes
 
         public void Refresh()
         {
-          //  try
-         //   {
+           try
+           {
             UpdateLasers();
             UpdateDrawings();
+           
                 
-         /*   }
+            }
             catch (IOException)
             {
                 throw new NetworkException("Servern verkar vara nere...");
-            }*/
+            }
         }
 
         
@@ -72,16 +74,16 @@ namespace HeatCodes
             foreach (var file in Directory.GetFiles(RootPath + LaserPath))
             {
                 laserList.Add(RemoveFullPath(file, 1));
+
             }
 
         }
 
         private void UpdateDrawings()
         {
-            laserList.Clear();
+            drawingList.Clear();
             foreach (var file in Directory.GetFiles(RootPath + DrawingPath))
             {
-                MessageBox.Show(file);
                 List<string> list= new List<string>();
                 list.Add(RemoveFullPath(file, 1));
                 drawingList.Add(list);
