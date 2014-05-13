@@ -30,9 +30,9 @@ namespace HeatCodes
         public List<string> Lasers { get { return dal.Lasers; }  set { dal.Lasers = value; } }
 
         //paths
-        public string RootPath { get { return dal.RootPath; } }
-        public string LaserPath { get { return dal.LaserPath; } }
-        public string DrawingPath { get { return dal.DrawingPath; } }
+        public string RootPath { get { return dal.RootPath; } set { dal.RootPath = value; } }
+        public string LaserPath { get { return dal.LaserPath; } set { dal.LaserPath = value; } }
+        public string DrawingPath { get { return dal.DrawingPath; } set { dal.DrawingPath = value; } }
 
         //misc? lol
         public string BrowseFile() { return dal.BrowseFile(); }

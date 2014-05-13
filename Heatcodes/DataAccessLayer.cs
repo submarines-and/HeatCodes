@@ -17,40 +17,31 @@ namespace HeatCodes
             if(debug)
             {
                 rootPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\";
-                laserPath = @"Laser\";
-                drawingPath = @"Ritningar\";
+                laserPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\Laser\";
+                drawingPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\Ritningar\";
             }
             else{
                 rootPath = @"\\umacserver\Group-HeatCore\20_Produkt\";
-                 laserPath = @"Laser\";
-                 drawingPath = @"Ritning\PDC v2.1\";
+                laserPath = @"\\umacserver\Group-HeatCore\20_Produkt\Laser\";
+                drawingPath = @"\\umacserver\Group-HeatCore\20_Produkt\Ritning\PDC v2.1\";
             }
 
         }
 
-        private readonly string rootPath;
-        private readonly string laserPath;
-        private readonly string drawingPath;
-        public string RootPath { get { return rootPath; } }
-        public string LaserPath { get { return laserPath; } }
-        public string DrawingPath { get { return drawingPath; } }
+        private string rootPath;
+        public string RootPath { get { return rootPath; } set { rootPath = value; } }
 
+        private string laserPath;
+        public string LaserPath { get { return laserPath; } set { laserPath = value; } }
 
+        private string drawingPath;
+        public string DrawingPath { get { return drawingPath; } set { drawingPath = value; } }
 
         private List<string> laserList = new List<string>();
+        public List<string> Lasers { get { return laserList; } set { laserList = value; } }
 
-        public List<string> Lasers
-        {
-            get { return laserList; }
-            set { laserList = value; }
-        }
         private List<List<string>> drawingList = new List<List<string>>();
-
-        public List<List<string>> Drawings
-        {
-            get { return drawingList; }
-            set { drawingList = value; }
-        }
+        public List<List<string>> Drawings { get { return drawingList; } set { drawingList = value; } }
 
         public void Refresh()
         {
@@ -71,7 +62,7 @@ namespace HeatCodes
         private void UpdateLasers()
         {
             laserList.Clear();
-            foreach (var file in Directory.GetFiles(RootPath + LaserPath))
+            foreach (var file in Directory.GetFiles(LaserPath))
             {
                 laserList.Add(RemoveFullPath(file, 1));
 
@@ -79,7 +70,7 @@ namespace HeatCodes
 
         }
 
-        private void UpdateDrawings()
+     /*   private void UpdateDrawings()
         {
             drawingList.Clear();
             foreach (var file in Directory.GetFiles(RootPath + DrawingPath))
@@ -89,13 +80,13 @@ namespace HeatCodes
                 drawingList.Add(list);
             }
 
-        }
+        }*/
 
 
 
-        private void UpdateDrawings2()
+        private void UpdateDrawings()
         {
-            string path = RootPath + DrawingPath;
+            string path = DrawingPath;
             drawingList.Clear();
             string[] fileList;
 

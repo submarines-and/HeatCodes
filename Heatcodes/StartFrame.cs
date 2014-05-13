@@ -116,18 +116,18 @@ namespace HeatCodes
             {
                 rev = "rev0";
             }
-            string path = Controller.RootPath + Controller.DrawingPath
+            string path = Controller.RootPath
                        + drawingCB.SelectedItem
                        + rev
                        + revisionCB.SelectedItem
                        + ".pdf";
-
+           // MessageBox.Show(path);
             drawingPreview.Navigate(path);
         }
 
         private void PreviewLaser()
         {
-            string path = Controller.RootPath + Controller.LaserPath
+            string path = Controller.LaserPath
                        + laserCB.SelectedItem
                        + ".csv";
 
@@ -247,6 +247,43 @@ namespace HeatCodes
             {
                 MessageBox.Show(f.ErrorMessage);
             }
+        }
+
+
+
+
+        /**
+         * Paths
+         * 
+         **/
+
+        private String BrowseFolder()
+        {
+            string folderPath = "";
+
+            FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                folderPath = folderBrowserDialog1.SelectedPath;
+            }
+
+            return folderPath + "\\";
+        }
+
+        private void menuItem6_Click(object sender, EventArgs e)
+        {
+            Controller.RootPath = BrowseFolder();
+        }
+
+        private void menuItem7_Click(object sender, EventArgs e)
+        {
+            Controller.DrawingPath = BrowseFolder();
+
+        }
+
+        private void menuItem8_Click(object sender, EventArgs e)
+        {
+            Controller.LaserPath = BrowseFolder();
         }
 
       
