@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Heatcodes;
 
 namespace HeatCodes
 {
     class DataAccessLayer
     {
-        bool debug = true;
+        bool debug = false;
 
         public DataAccessLayer()
         {
@@ -20,12 +21,22 @@ namespace HeatCodes
                 laserPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\Laser\";
                 drawingPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\Ritningar\";
             }
+            else
+            {
+                SettingsLoader.LoadSettings();
+                rootPath = SettingsLoader.RootPath;
+                drawingPath = SettingsLoader.DrawingPath;
+                laserPath = SettingsLoader.LaserPath;
+
+            }
+
+            /*
             else{
                 rootPath = @"\\umacserver\Group-HeatCore\20_Produkt\";
                 laserPath = @"\\umacserver\Group-HeatCore\20_Produkt\Laser\";
                 drawingPath = @"\\umacserver\Group-HeatCore\20_Produkt\Ritning\PDC v2.1\";
             }
-
+            */
         }
 
         private string rootPath;

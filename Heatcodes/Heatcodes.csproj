@@ -54,6 +54,7 @@
     <Compile Include="DataAccessLayer.cs" />
     <Compile Include="NetworkException.cs" />
     <Compile Include="Printer.cs" />
+    <Compile Include="SettingsLoader.cs" />
     <Compile Include="StartFrame.cs">
       <SubType>Form</SubType>
     </Compile>

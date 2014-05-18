@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Heatcodes;
 
 namespace HeatCodes
 {
@@ -273,17 +274,29 @@ namespace HeatCodes
         private void menuItem6_Click(object sender, EventArgs e)
         {
             Controller.RootPath = BrowseFolder();
+            Save();
         }
 
         private void menuItem7_Click(object sender, EventArgs e)
         {
             Controller.DrawingPath = BrowseFolder();
-
+            Save();
         }
 
         private void menuItem8_Click(object sender, EventArgs e)
         {
             Controller.LaserPath = BrowseFolder();
+            Save();
+        }
+
+        private void Save()
+        {
+            string[] output = new string[3];
+            output[0] = Controller.RootPath;
+            output[1] = Controller.DrawingPath;
+            output[2] = Controller.LaserPath;
+
+            SettingsLoader.Save(output);
         }
 
       
