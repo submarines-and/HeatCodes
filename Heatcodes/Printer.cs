@@ -41,11 +41,8 @@ namespace HeatCodes
                                 + "Laser: " + output["laser"] + " - "
                                 + "Cert: " + output["cert"];
           
-
             label.SetObjectText("BARCODE", barcodeData);
             label.SetObjectText("TEXT", output["misc"]);
-
-           
 
             try
             {
