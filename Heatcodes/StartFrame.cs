@@ -189,7 +189,6 @@ namespace HeatCodes
             Dictionary<string, string> output = new Dictionary<string, string>();
 
             output.Add("drawing", drawingCB.SelectedItem.ToString());
-            output.Add("revision", revisionCB.SelectedItem.ToString());
             output.Add("laser", laserCB.SelectedItem.ToString());
             output.Add("cert", certCB.SelectedItem.ToString());
             output.Add("misc", miscText.Text);

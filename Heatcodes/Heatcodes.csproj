@@ -75,8 +75,7 @@
     <EmbeddedResource Include="StartFrame.resx">
       <DependentUpon>StartFrame.cs</DependentUpon>
     </EmbeddedResource>
-    <Resource Include="alt1.label" />
-    <Resource Include="alt2.label" />
+    <Resource Include="small.label" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

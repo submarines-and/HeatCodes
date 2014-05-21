@@ -31,9 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartFrame));
             this.drawingCB = new System.Windows.Forms.ComboBox();
-            this.revisionCB = new System.Windows.Forms.ComboBox();
             this.drawingLabel = new System.Windows.Forms.Label();
-            this.revisionLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.miscLabel = new System.Windows.Forms.Label();
             this.miscText = new System.Windows.Forms.TextBox();
@@ -68,17 +66,6 @@
             this.drawingCB.TabIndex = 1;
             this.drawingCB.SelectedIndexChanged += new System.EventHandler(this.DrawingListListener);
             // 
-            // revisionCB
-            // 
-            this.revisionCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.revisionCB.FormattingEnabled = true;
-            this.revisionCB.Location = new System.Drawing.Point(908, 202);
-            this.revisionCB.Margin = new System.Windows.Forms.Padding(2);
-            this.revisionCB.Name = "revisionCB";
-            this.revisionCB.Size = new System.Drawing.Size(146, 21);
-            this.revisionCB.TabIndex = 2;
-            this.revisionCB.SelectedIndexChanged += new System.EventHandler(this.RevisionListListener);
-            // 
             // drawingLabel
             // 
             this.drawingLabel.AutoSize = true;
@@ -88,16 +75,6 @@
             this.drawingLabel.Size = new System.Drawing.Size(40, 13);
             this.drawingLabel.TabIndex = 3;
             this.drawingLabel.Text = "Ritning";
-            // 
-            // revisionLabel
-            // 
-            this.revisionLabel.AutoSize = true;
-            this.revisionLabel.Location = new System.Drawing.Point(843, 210);
-            this.revisionLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.revisionLabel.Name = "revisionLabel";
-            this.revisionLabel.Size = new System.Drawing.Size(48, 13);
-            this.revisionLabel.TabIndex = 4;
-            this.revisionLabel.Text = "Revision";
             // 
             // pictureBox1
             // 
@@ -114,7 +91,7 @@
             // miscLabel
             // 
             this.miscLabel.AutoSize = true;
-            this.miscLabel.Location = new System.Drawing.Point(842, 358);
+            this.miscLabel.Location = new System.Drawing.Point(842, 284);
             this.miscLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.miscLabel.Name = "miscLabel";
             this.miscLabel.Size = new System.Drawing.Size(60, 13);
@@ -123,7 +100,7 @@
             // 
             // miscText
             // 
-            this.miscText.Location = new System.Drawing.Point(908, 355);
+            this.miscText.Location = new System.Drawing.Point(908, 281);
             this.miscText.Margin = new System.Windows.Forms.Padding(2);
             this.miscText.Name = "miscText";
             this.miscText.Size = new System.Drawing.Size(146, 20);
@@ -132,7 +109,7 @@
             // laserLbl
             // 
             this.laserLbl.AutoSize = true;
-            this.laserLbl.Location = new System.Drawing.Point(842, 314);
+            this.laserLbl.Location = new System.Drawing.Point(842, 240);
             this.laserLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.laserLbl.Name = "laserLbl";
             this.laserLbl.Size = new System.Drawing.Size(33, 13);
@@ -143,7 +120,7 @@
             // 
             this.laserCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.laserCB.FormattingEnabled = true;
-            this.laserCB.Location = new System.Drawing.Point(907, 314);
+            this.laserCB.Location = new System.Drawing.Point(907, 240);
             this.laserCB.Margin = new System.Windows.Forms.Padding(2);
             this.laserCB.Name = "laserCB";
             this.laserCB.Size = new System.Drawing.Size(146, 21);
@@ -171,7 +148,7 @@
             // 
             // browseLaser
             // 
-            this.browseLaser.Location = new System.Drawing.Point(1057, 313);
+            this.browseLaser.Location = new System.Drawing.Point(1057, 239);
             this.browseLaser.Margin = new System.Windows.Forms.Padding(2);
             this.browseLaser.Name = "browseLaser";
             this.browseLaser.Size = new System.Drawing.Size(21, 19);
@@ -243,7 +220,7 @@
             // certLabel
             // 
             this.certLabel.AutoSize = true;
-            this.certLabel.Location = new System.Drawing.Point(842, 279);
+            this.certLabel.Location = new System.Drawing.Point(842, 205);
             this.certLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.certLabel.Name = "certLabel";
             this.certLabel.Size = new System.Drawing.Size(48, 13);
@@ -254,7 +231,7 @@
             // 
             this.certCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.certCB.FormattingEnabled = true;
-            this.certCB.Location = new System.Drawing.Point(908, 276);
+            this.certCB.Location = new System.Drawing.Point(908, 202);
             this.certCB.Margin = new System.Windows.Forms.Padding(2);
             this.certCB.Name = "certCB";
             this.certCB.Size = new System.Drawing.Size(146, 21);
@@ -263,7 +240,7 @@
             // 
             // browseCert
             // 
-            this.browseCert.Location = new System.Drawing.Point(1058, 276);
+            this.browseCert.Location = new System.Drawing.Point(1058, 202);
             this.browseCert.Margin = new System.Windows.Forms.Padding(2);
             this.browseCert.Name = "browseCert";
             this.browseCert.Size = new System.Drawing.Size(21, 19);
@@ -289,9 +266,7 @@
             this.Controls.Add(this.miscText);
             this.Controls.Add(this.miscLabel);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.revisionLabel);
             this.Controls.Add(this.drawingLabel);
-            this.Controls.Add(this.revisionCB);
             this.Controls.Add(this.drawingCB);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -307,9 +282,7 @@
         #endregion
 
         private System.Windows.Forms.ComboBox drawingCB;
-        private System.Windows.Forms.ComboBox revisionCB;
         private System.Windows.Forms.Label drawingLabel;
-        private System.Windows.Forms.Label revisionLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label miscLabel;
         private System.Windows.Forms.TextBox miscText;
