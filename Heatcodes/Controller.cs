@@ -24,19 +24,21 @@ namespace HeatCodes
         //printer
         public void Print(Dictionary<string, string> output) { Printer.Print(output); }
 
-        //folders
-        public void Refresh() { dal.Refresh(); }
-        public List<List<string>> Drawings { get { return dal.Drawings; } set { dal.Drawings = value; } }
-        public List<string> Lasers { get { return dal.Lasers; }  set { dal.Lasers = value; } }
-
         //paths
-        public string RootPath { get { return dal.RootPath; } set { dal.RootPath = value; } }
-        public string LaserPath { get { return dal.LaserPath; } set { dal.LaserPath = value; } }
         public string DrawingPath { get { return dal.DrawingPath; } set { dal.DrawingPath = value; } }
+        public string LaserPath { get { return dal.LaserPath; } set { dal.LaserPath = value; } }
+        public string CertPath { get { return dal.CertPath; } set { dal.CertPath = value; } }
 
-        //misc? lol
-        public string BrowseFile() { return dal.BrowseFile(); }
-        public string RemoveFullPath(string input, int count) { return dal.RemoveFullPath(input, count); }
+        //lists
+        public List<string> DrawingList() { return dal.DrawingList(); }
+        public List<string> LaserList() { return dal.LaserList(); }
+        public List<string> CertList() { return dal.CertList(); }
+
+        //browsing
+        public string BrowseFile(){ return dal.BrowseFile();}
+        public String BrowseFolder() { return dal.BrowseFolder(); }
+       
+
 
 
     } //class

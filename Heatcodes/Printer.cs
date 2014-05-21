@@ -12,7 +12,7 @@ namespace HeatCodes
 {
     class Printer
     {
-        private readonly String barcodeTemplateName = "alt1.label";
+        private readonly String barcodeTemplateName = "small.label";
         private DYMO.Label.Framework.IPrinter currentPrinter;
 
         public Printer()
@@ -28,7 +28,7 @@ namespace HeatCodes
             }
             catch (ArgumentOutOfRangeException)
             {
-                //MessageBox.Show("Inga printers anslutna");
+                MessageBox.Show("Inga printers anslutna");
             }
         }
 
@@ -37,12 +37,11 @@ namespace HeatCodes
         {
             var label = DYMO.Label.Framework.Label.Open(Application.GetResourceStream(new Uri(barcodeTemplateName, UriKind.Relative)).Stream);
 
-            string barcodeData = output["drawing"]
-                                + " "
-                                + output["revision"]
-                                + " "
-                                + output["laser"];
-
+            string barcodeData = output["drawing"] + " - "
+                                + "Rev: " + output["revision"] + " - "
+                                + "Laser: " + output["laser"] + " - "
+                                + "Cert: " + output["cert"];
+          
 
             label.SetObjectText("BARCODE", barcodeData);
             label.SetObjectText("TEXT", output["misc"]);

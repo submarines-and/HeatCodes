@@ -10,8 +10,8 @@ namespace Heatcodes
     static class SettingsLoader
     {
 
-        private static string rootPath;
-        public static string RootPath { get { return rootPath; } set { rootPath = value; } }
+        private static string certPath;
+        public static string CertPath { get { return certPath; } set { certPath = value; } }
 
         private static string laserPath;
         public static string LaserPath { get { return laserPath; } set { laserPath = value; } }
@@ -24,9 +24,9 @@ namespace Heatcodes
         {
             StreamReader sr = File.OpenText("config.txt");
 
-            RootPath = sr.ReadLine();
             DrawingPath = sr.ReadLine();
             LaserPath = sr.ReadLine();
+            CertPath = sr.ReadLine();
 
             sr.Close();
         }

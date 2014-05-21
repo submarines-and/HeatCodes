@@ -14,296 +14,198 @@ namespace HeatCodes
 {
     public partial class StartFrame : Form
     {
+
+        //forwarding
         private Controller controller;
 
-        internal Controller Controller
+        //constuctor
+        public StartFrame() { controller = new Controller(); InitializeComponent(); }
+
+        private Dictionary<string, string> drawingList = new Dictionary<string, string>();
+        private Dictionary<string, string> laserList = new Dictionary<string, string>();
+        private Dictionary<string, string> certList = new Dictionary<string, string>();
+
+
+        /*
+         * Attempts to "connect" by loading the file lists, will also clear any manually browsed-for files
+         */
+        private void ConnectMenuListener(object sender, EventArgs e)
         {
-            get { return controller; }
-            set { controller = value; }
-        }
+            drawingList.Clear();
+            laserList.Clear();
+            certList.Clear();
 
-        public StartFrame()
-        {
-            Controller = new Controller();
-            InitializeComponent();
-    
-        }
-
-   
-        private void RefreshConfig()
-        {
-            drawingCB.Items.Clear();
-
-            foreach (List<string> l in Controller.Drawings)
-            {
-                drawingCB.Items.Add(l[0]);
-            }
-            try
-            {
-                drawingCB.SelectedIndex = 0;
-            }
-            catch(ArgumentOutOfRangeException){
-            }
-            try
-            {
-                revisionCB.SelectedIndex = 0;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-
-            }
+            InitialBind(controller.DrawingList(), drawingList, drawingCB);
+            InitialBind(controller.LaserList(), laserList, laserCB);
+            InitialBind(controller.CertList(), certList, certCB);
 
         }
 
-        private void RefreshLaser()
+        /*
+         * Binds combobox to a dictionary
+         */
+        private void InitialBind(List<string> source, Dictionary<string, string> target, ComboBox display)
         {
-            laserCB.Items.Clear();
+            foreach (string s in source)
+            {
+                target.Add(RemoveFullPath(s, 1), s);
+            }
 
-            foreach (string s in Controller.Lasers)
-            {
-                laserCB.Items.Add(s);
-
-            }
-            try
-            {
-                laserCB.SelectedIndex = 0;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-            }
+            Bind(target, display);
         }
 
-        private void RefreshRevisionCB()
+        /*
+         * Shared binding functionality
+         */
+        private void Bind(Dictionary<string, string> target, ComboBox display)
         {
-            revisionCB.Items.Clear();
-
-            foreach (List<string> l in Controller.Drawings)
-            {
-                if (drawingCB.SelectedItem.ToString() == l[0])
-                {
-                    for (int i = 1; i < l.Count; i++)
-                    {
-                        string[] stringSeparators = stringSeparators = new string[] { "." };
-                        string cut = l[i].Split(stringSeparators, StringSplitOptions.None)[0];
-                        revisionCB.Items.Add(cut);
-                    }
-                }
-            }
-            if (revisionCB.Items.Count > 0)
-            {
-                revisionCB.SelectedIndex = 0;
-            }
+            display.DataSource = new BindingList<string>(target.Keys.ToList());
         }
 
-      
+        
+        /*
+         * Functions for browsing for a file/folder that's stored in a different location
+         */
+        private void BrowseForDrawing(object sender, EventArgs e) { BrowseHelper(drawingList, drawingCB, "file"); }
+        private void BrowseForLaser(object sender, EventArgs e) { BrowseHelper(laserList, laserCB, "folder"); }
+        private void BrowseForCertificate(object sender, EventArgs e) { BrowseHelper(certList, certCB, "file"); }
 
+        private void BrowseHelper(Dictionary<string,string> target, ComboBox display, string type)
+        {
+            string newDocument = null;
+
+            if (type == "file")
+            {
+                newDocument = controller.BrowseFile();
+            }
+
+            else if (type == "folder")
+            {
+                newDocument = controller.BrowseFolder();
+            }
+
+            if (newDocument != null)
+            {
+                string key = RemoveFullPath(newDocument, 1);
+                target.Add(key, newDocument);
+                Bind(target, display);
+                display.SelectedItem = key;
+            }
+
+        }
+
+
+        /*
+         * Method for previewing a document
+         */
+        private void PreviewDocument(string path)
+        {
+            documentPreview.Navigate(path);
+        }
+
+        /*
+         * Listeners that trigger a preview
+         */
         private void DrawingListListener(object sender, EventArgs e)
         {
-            RefreshRevisionCB();
-
-            PreviewDrawing();
-        }
-
-        private void LaserListlistener(object sender, EventArgs e)
-        {
-            PreviewLaser();
-        }
-
-
-        private void PreviewDrawing()
-        {
-            string rev = "rev";
-            if (revisionCB.SelectedItem == null)
-            {
-                rev = "rev0";
-            }
-            string path = Controller.RootPath
-                       + drawingCB.SelectedItem
-                       + rev
-                       + revisionCB.SelectedItem
-                       + ".pdf";
-           // MessageBox.Show(path);
-            drawingPreview.Navigate(path);
-        }
-
-        private void PreviewLaser()
-        {
-            string path = Controller.LaserPath
-                       + laserCB.SelectedItem
-                       + ".csv";
-
-            try
-            {
-                StreamReader sr = new StreamReader(path);
-                var lines = new List<string[]>();
-                int Row = 0;
-                while (!sr.EndOfStream)
-                {
-                    string[] Line = sr.ReadLine().Split(';');
-                    lines.Add(Line);
-                    Row++;
-                    Console.WriteLine(Row);
-                }
-
-                var data = lines.ToArray();
-
-                FillTable(data);
-            }
-            catch (DirectoryNotFoundException)
-            {
-
-            }
-            
-        }
-
-        private void FillTable(string[][] matrix)
-        {
-            DataTable tb = new DataTable();
-            tb.Clear();
-            int j = 0;
-            foreach (string[] list in matrix)
-            {
-                tb.Columns.Add(j.ToString());
-                j++;
-            }
-
-            foreach (string[] list in matrix)
-            {
-                int i = 0;
-                DataRow row = tb.NewRow();
-
-                foreach (string s in list)
-                {
-                    row[i] = s;
-                    i++;
-                }
-                tb.Rows.Add(row);
-            }
-
-            laserPreview.DataSource = tb;
-
+           PreviewDocument(drawingList[drawingCB.SelectedItem.ToString()]);
         }
 
         private void RevisionListListener(object sender, EventArgs e)
         {
-            PreviewDrawing();
+
         }
 
-        private void BrowseForDrawing(object sender, EventArgs e)
+        private void CertListListener(object sender, EventArgs e)
         {
-            string newDocument = Controller.BrowseFile();
+            PreviewDocument(certList[certCB.SelectedItem.ToString()]);
 
-            if (newDocument != null)
-            {
-                drawingCB.Items.Add(newDocument);
-                drawingCB.SelectedItem = newDocument;
-            }
-            
-        }
-
-       
-
-        private void BrowseForLaser(object sender, EventArgs e)
-        {
-            string newDocument = Controller.BrowseFile();
-            if (newDocument != null)
-            {
-                laserCB.Items.Add(newDocument);
-                laserCB.SelectedItem = newDocument;
-            }
-        
-        }
-
-        private void ConnectMenuListener(object sender, EventArgs e)
-        {
-            try
-            {
-                Controller.Refresh();
-                RefreshConfig();
-                RefreshLaser();
-            }
-            catch (NetworkException f)
-            {
-                MessageBox.Show(f.ErrorMessage);
-            }
-        }
-
-        private void PrintMenuListener(object sender, EventArgs e)
-        {
-            Dictionary<string, string> output = new Dictionary<string, string>();
-
-            string drawing = Controller.RemoveFullPath(drawingCB.SelectedItem as string, 1);
-            string revision = "Rev" + Controller.RemoveFullPath(revisionCB.SelectedItem as string, 1);
-
-            output.Add("drawing", drawing);
-            output.Add("revision", revision);
-            output.Add("misc", miscText.Text);
-            output.Add("laser", laserCB.SelectedItem as string);
-
-            try
-            {
-                Controller.Print(output);
-            }
-            catch (NetworkException f)
-            {
-                MessageBox.Show(f.ErrorMessage);
-            }
         }
 
 
+        /*
+         * Menu options for changing paths
+         */
+        private void ChangeDrawingPath(object sender, EventArgs e) { controller.DrawingPath = controller.BrowseFolder(); Save(); }
+        private void ChangeLaserPath(object sender, EventArgs e) { controller.LaserPath = controller.BrowseFolder(); Save(); }
+        private void ChangeCertificatePath(object sender, EventArgs e) { controller.CertPath = controller.BrowseFolder(); Save(); }
 
 
-        /**
-         * Paths
-         * 
-         **/
-
-        private String BrowseFolder()
-        {
-            string folderPath = "";
-
-            FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-            {
-                folderPath = folderBrowserDialog1.SelectedPath;
-            }
-
-            return folderPath + "\\";
-        }
-
-        private void menuItem6_Click(object sender, EventArgs e)
-        {
-            Controller.RootPath = BrowseFolder();
-            Save();
-        }
-
-        private void menuItem7_Click(object sender, EventArgs e)
-        {
-            Controller.DrawingPath = BrowseFolder();
-            Save();
-        }
-
-        private void menuItem8_Click(object sender, EventArgs e)
-        {
-            Controller.LaserPath = BrowseFolder();
-            Save();
-        }
-
+        /*
+         * Saves current config to a textfile
+         */
         private void Save()
         {
             string[] output = new string[3];
-            output[0] = Controller.RootPath;
-            output[1] = Controller.DrawingPath;
-            output[2] = Controller.LaserPath;
+            output[0] = controller.DrawingPath;
+            output[1] = controller.LaserPath;
+            output[2] = controller.CertPath;
 
             SettingsLoader.Save(output);
         }
 
-      
+
+        /*
+         * Display function; clears path to a set number of remaining backslashes
+         */
+        public string RemoveFullPath(string input, int count)
+        {
+            if (input != null)
+            {
+                string lower = input.ToLower();
+
+                string[] stringSeparators = new string[] { "\\" };
+                string[] all = lower.Split(stringSeparators, StringSplitOptions.None);
+                int size = all.Length;
+                string split = "";
+
+                if (count == 1)
+                {
+                    split = all[size - 1];
+                }
+                else if (count == 2)
+                {
+                    split = all[size - 2] + "\\" + all[size - 1];
+                }
 
 
+                split = split.Replace(".pdf", "");
+
+                return split;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
 
 
+      /*
+      * Prints current selection
+      */
+        private void PrintMenuListener(object sender, EventArgs e)
+        {
+            Dictionary<string, string> output = new Dictionary<string, string>();
+
+            output.Add("drawing", drawingCB.SelectedItem.ToString());
+            output.Add("revision", revisionCB.SelectedItem.ToString());
+            output.Add("laser", laserCB.SelectedItem.ToString());
+            output.Add("cert", certCB.SelectedItem.ToString());
+            output.Add("misc", miscText.Text);
+
+            try
+            {
+                controller.Print(output);
+            }
+            catch (NetworkException f)
+            {
+                MessageBox.Show(f.ErrorMessage);
+            }
+        }
+
+
+       
 
 
     } //class
