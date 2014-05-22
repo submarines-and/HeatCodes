@@ -58,7 +58,18 @@ namespace HeatCodes
          */
         public List<string> DrawingList()
         {
-            return Directory.GetFiles(DrawingPath).ToList();
+            List<string> drawings = Directory.GetFiles(DrawingPath).ToList();
+            List<string> filtered = new List<string>();
+            
+            foreach(string s in drawings)
+            {
+                if(s.Contains("90"))
+                {
+                    filtered.Add(s);
+                }
+            }
+
+            return filtered;
         }
 
         public List<string> LaserList()

@@ -67,7 +67,7 @@ namespace HeatCodes
          * Functions for browsing for a file/folder that's stored in a different location
          */
         private void BrowseForDrawing(object sender, EventArgs e) { BrowseHelper(drawingList, drawingCB, "file"); }
-        private void BrowseForLaser(object sender, EventArgs e) { BrowseHelper(laserList, laserCB, "folder"); }
+       // private void BrowseForLaser(object sender, EventArgs e) { BrowseHelper(laserList, laserCB, "folder"); }
         private void BrowseForCertificate(object sender, EventArgs e) { BrowseHelper(certList, certCB, "file"); }
 
         private void BrowseHelper(Dictionary<string,string> target, ComboBox display, string type)
@@ -96,31 +96,11 @@ namespace HeatCodes
 
 
         /*
-         * Method for previewing a document
+         * Previews
          */
-        private void PreviewDocument(string path)
-        {
-            documentPreview.Navigate(path);
-        }
-
-        /*
-         * Listeners that trigger a preview
-         */
-        private void DrawingListListener(object sender, EventArgs e)
-        {
-           PreviewDocument(drawingList[drawingCB.SelectedItem.ToString()]);
-        }
-
-        private void RevisionListListener(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CertListListener(object sender, EventArgs e)
-        {
-            PreviewDocument(certList[certCB.SelectedItem.ToString()]);
-
-        }
+        private void PreviewDocument(string path) { documentPreview.Navigate(path); }
+        private void DrawingListListener(object sender, EventArgs e) { PreviewDocument(drawingList[drawingCB.SelectedItem.ToString()]); }
+        private void CertListListener(object sender, EventArgs e) { PreviewDocument(certList[certCB.SelectedItem.ToString()]); }
 
 
         /*
@@ -188,9 +168,9 @@ namespace HeatCodes
         {
             Dictionary<string, string> output = new Dictionary<string, string>();
 
-            output.Add("drawing", drawingCB.SelectedItem.ToString());
-            output.Add("laser", laserCB.SelectedItem.ToString());
-            output.Add("cert", certCB.SelectedItem.ToString());
+            output.Add("drawing", drawingCB.SelectedItem as string);
+            output.Add("laser", laserCB.SelectedItem as string);
+            output.Add("cert", certCB.SelectedItem as string);
             output.Add("misc", miscText.Text);
 
             try

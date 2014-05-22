@@ -39,7 +39,6 @@
             this.laserCB = new System.Windows.Forms.ComboBox();
             this.documentPreview = new System.Windows.Forms.WebBrowser();
             this.browseDrawing = new System.Windows.Forms.Button();
-            this.browseLaser = new System.Windows.Forms.Button();
             this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
@@ -103,7 +102,7 @@
             this.miscText.Location = new System.Drawing.Point(908, 281);
             this.miscText.Margin = new System.Windows.Forms.Padding(2);
             this.miscText.Name = "miscText";
-            this.miscText.Size = new System.Drawing.Size(146, 20);
+            this.miscText.Size = new System.Drawing.Size(220, 20);
             this.miscText.TabIndex = 7;
             // 
             // laserLbl
@@ -145,17 +144,6 @@
             this.browseDrawing.Text = "...";
             this.browseDrawing.UseVisualStyleBackColor = true;
             this.browseDrawing.Click += new System.EventHandler(this.BrowseForDrawing);
-            // 
-            // browseLaser
-            // 
-            this.browseLaser.Location = new System.Drawing.Point(1057, 239);
-            this.browseLaser.Margin = new System.Windows.Forms.Padding(2);
-            this.browseLaser.Name = "browseLaser";
-            this.browseLaser.Size = new System.Drawing.Size(21, 19);
-            this.browseLaser.TabIndex = 16;
-            this.browseLaser.Text = "...";
-            this.browseLaser.UseVisualStyleBackColor = true;
-            this.browseLaser.Click += new System.EventHandler(this.BrowseForLaser);
             // 
             // mainMenu1
             // 
@@ -258,7 +246,6 @@
             this.Controls.Add(this.browseCert);
             this.Controls.Add(this.certLabel);
             this.Controls.Add(this.certCB);
-            this.Controls.Add(this.browseLaser);
             this.Controls.Add(this.browseDrawing);
             this.Controls.Add(this.documentPreview);
             this.Controls.Add(this.laserLbl);
@@ -290,7 +277,6 @@
         private System.Windows.Forms.ComboBox laserCB;
         private System.Windows.Forms.WebBrowser documentPreview;
         private System.Windows.Forms.Button browseDrawing;
-        private System.Windows.Forms.Button browseLaser;
         private System.Windows.Forms.MainMenu mainMenu1;
         private System.Windows.Forms.MenuItem menuItem1;
         private System.Windows.Forms.MenuItem menuItem2;
