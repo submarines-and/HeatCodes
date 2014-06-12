@@ -19,6 +19,9 @@ namespace Heatcodes
         private static string drawingPath;
         public static string DrawingPath { get { return drawingPath; } set { drawingPath = value; } }
 
+        private static string miscPath;
+        public static string MiscPath { get { return miscPath; } set { miscPath = value; } }
+
 
         public static void LoadSettings()
         {
@@ -27,6 +30,7 @@ namespace Heatcodes
             DrawingPath = sr.ReadLine();
             LaserPath = sr.ReadLine();
             CertPath = sr.ReadLine();
+            MiscPath = sr.ReadLine();
 
             sr.Close();
         }

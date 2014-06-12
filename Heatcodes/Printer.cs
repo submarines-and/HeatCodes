@@ -37,12 +37,10 @@ namespace HeatCodes
         {
             var label = DYMO.Label.Framework.Label.Open(Application.GetResourceStream(new Uri(barcodeTemplateName, UriKind.Relative)).Stream);
 
-            string barcodeData = output["drawing"] + " - "
-                                + "Laser: " + output["laser"] + " - "
-                                + "Cert: " + output["cert"];
-          
+            string barcodeData = string.Format("{0} - Laser: {1} - Cert: {2} - Misc: {3}", output["drawing"], output["laser"], output["cert"], output["misc"]);
+                
             label.SetObjectText("BARCODE", barcodeData);
-            label.SetObjectText("TEXT", output["misc"]);
+            label.SetObjectText("TEXT", output["note"]);
 
             try
             {

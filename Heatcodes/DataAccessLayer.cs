@@ -14,7 +14,7 @@ namespace HeatCodes
     {
 
         //global debug flag
-        public static bool debug = false;
+        public static bool debug = true;
 
 
         /*
@@ -27,6 +27,7 @@ namespace HeatCodes
                 drawingPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\Produkt\Ritningar\";
                 laserPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\Produkt\Laser\";
                 certPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\Produkt\Certifikat\";
+                miscPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\Produkt\Intyg";
 
             }
             else
@@ -35,6 +36,7 @@ namespace HeatCodes
                 certPath = SettingsLoader.CertPath;
                 drawingPath = SettingsLoader.DrawingPath;
                 laserPath = SettingsLoader.LaserPath;
+                miscPath = SettingsLoader.MiscPath;
             }
 
         }
@@ -51,6 +53,9 @@ namespace HeatCodes
 
         private string certPath;
         public string CertPath { get { return certPath; } set { certPath = value; } }
+
+        private string miscPath;
+        public string MiscPath { get { return miscPath; } set { miscPath = value; } }
 
 
         /*
@@ -80,6 +85,11 @@ namespace HeatCodes
         public List<string> CertList()
         {
             return Directory.GetFiles(CertPath).ToList();
+        }
+
+        public List<string> MiscList()
+        {
+            return Directory.GetFiles(MiscPath).ToList();
         }
 
    

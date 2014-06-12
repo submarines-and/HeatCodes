@@ -34,7 +34,7 @@
             this.drawingLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.miscLabel = new System.Windows.Forms.Label();
-            this.miscText = new System.Windows.Forms.TextBox();
+            this.noteText = new System.Windows.Forms.TextBox();
             this.laserLbl = new System.Windows.Forms.Label();
             this.laserCB = new System.Windows.Forms.ComboBox();
             this.documentPreview = new System.Windows.Forms.WebBrowser();
@@ -51,6 +51,9 @@
             this.certLabel = new System.Windows.Forms.Label();
             this.certCB = new System.Windows.Forms.ComboBox();
             this.browseCert = new System.Windows.Forms.Button();
+            this.miscCB = new System.Windows.Forms.ComboBox();
+            this.browseMisc = new System.Windows.Forms.Button();
+            this.menuItem9 = new System.Windows.Forms.MenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,7 +93,7 @@
             // miscLabel
             // 
             this.miscLabel.AutoSize = true;
-            this.miscLabel.Location = new System.Drawing.Point(842, 284);
+            this.miscLabel.Location = new System.Drawing.Point(841, 314);
             this.miscLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.miscLabel.Name = "miscLabel";
             this.miscLabel.Size = new System.Drawing.Size(60, 13);
@@ -99,11 +102,11 @@
             // 
             // miscText
             // 
-            this.miscText.Location = new System.Drawing.Point(908, 281);
-            this.miscText.Margin = new System.Windows.Forms.Padding(2);
-            this.miscText.Name = "miscText";
-            this.miscText.Size = new System.Drawing.Size(220, 20);
-            this.miscText.TabIndex = 7;
+            this.noteText.Location = new System.Drawing.Point(907, 311);
+            this.noteText.Margin = new System.Windows.Forms.Padding(2);
+            this.noteText.Name = "miscText";
+            this.noteText.Size = new System.Drawing.Size(220, 20);
+            this.noteText.TabIndex = 7;
             // 
             // laserLbl
             // 
@@ -184,7 +187,8 @@
             this.menuItem5.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem6,
             this.menuItem7,
-            this.menuItem8});
+            this.menuItem8,
+            this.menuItem9});
             this.menuItem5.Text = "Paths";
             // 
             // menuItem6
@@ -237,12 +241,42 @@
             this.browseCert.UseVisualStyleBackColor = true;
             this.browseCert.Click += new System.EventHandler(this.BrowseForCertificate);
             // 
+            // miscCB
+            // 
+            this.miscCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.miscCB.FormattingEnabled = true;
+            this.miscCB.Location = new System.Drawing.Point(907, 276);
+            this.miscCB.Margin = new System.Windows.Forms.Padding(2);
+            this.miscCB.Name = "miscCB";
+            this.miscCB.Size = new System.Drawing.Size(146, 21);
+            this.miscCB.TabIndex = 20;
+            this.miscCB.SelectedIndexChanged += new System.EventHandler(this.MiscListListener);
+            // 
+            // browseMisc
+            // 
+            this.browseMisc.Location = new System.Drawing.Point(1059, 276);
+            this.browseMisc.Margin = new System.Windows.Forms.Padding(2);
+            this.browseMisc.Name = "browseMisc";
+            this.browseMisc.Size = new System.Drawing.Size(21, 19);
+            this.browseMisc.TabIndex = 21;
+            this.browseMisc.Text = "...";
+            this.browseMisc.UseVisualStyleBackColor = true;
+            this.browseMisc.Click += new System.EventHandler(this.BrowseForMisc);
+            // 
+            // menuItem9
+            // 
+            this.menuItem9.Index = 3;
+            this.menuItem9.Text = "Övrigt";
+            this.menuItem9.Click += new System.EventHandler(this.ChangeMiscPath);
+            // 
             // StartFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1232, 623);
+            this.Controls.Add(this.browseMisc);
+            this.Controls.Add(this.miscCB);
             this.Controls.Add(this.browseCert);
             this.Controls.Add(this.certLabel);
             this.Controls.Add(this.certCB);
@@ -250,7 +284,7 @@
             this.Controls.Add(this.documentPreview);
             this.Controls.Add(this.laserLbl);
             this.Controls.Add(this.laserCB);
-            this.Controls.Add(this.miscText);
+            this.Controls.Add(this.noteText);
             this.Controls.Add(this.miscLabel);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.drawingLabel);
@@ -272,7 +306,7 @@
         private System.Windows.Forms.Label drawingLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label miscLabel;
-        private System.Windows.Forms.TextBox miscText;
+        private System.Windows.Forms.TextBox noteText;
         private System.Windows.Forms.Label laserLbl;
         private System.Windows.Forms.ComboBox laserCB;
         private System.Windows.Forms.WebBrowser documentPreview;
@@ -289,6 +323,9 @@
         private System.Windows.Forms.Label certLabel;
         private System.Windows.Forms.ComboBox certCB;
         private System.Windows.Forms.Button browseCert;
+        private System.Windows.Forms.ComboBox miscCB;
+        private System.Windows.Forms.Button browseMisc;
+        private System.Windows.Forms.MenuItem menuItem9;
     }
 }
 

@@ -28,11 +28,14 @@ namespace HeatCodes
         public string DrawingPath { get { return dal.DrawingPath; } set { dal.DrawingPath = value; } }
         public string LaserPath { get { return dal.LaserPath; } set { dal.LaserPath = value; } }
         public string CertPath { get { return dal.CertPath; } set { dal.CertPath = value; } }
+        public string MiscPath { get { return dal.MiscPath; } set { dal.MiscPath = value; } }
 
         //lists
         public List<string> DrawingList() { return dal.DrawingList(); }
         public List<string> LaserList() { return dal.LaserList(); }
         public List<string> CertList() { return dal.CertList(); }
+        public List<string> MiscList() { return dal.MiscList(); }
+
 
         //browsing
         public string BrowseFile(){ return dal.BrowseFile();}

@@ -24,6 +24,7 @@ namespace HeatCodes
         private Dictionary<string, string> drawingList = new Dictionary<string, string>();
         private Dictionary<string, string> laserList = new Dictionary<string, string>();
         private Dictionary<string, string> certList = new Dictionary<string, string>();
+        private Dictionary<string, string> miscList = new Dictionary<string, string>();
 
 
         /*
@@ -34,10 +35,12 @@ namespace HeatCodes
             drawingList.Clear();
             laserList.Clear();
             certList.Clear();
+            miscList.Clear();
 
             InitialBind(controller.DrawingList(), drawingList, drawingCB);
             InitialBind(controller.LaserList(), laserList, laserCB);
             InitialBind(controller.CertList(), certList, certCB);
+            InitialBind(controller.MiscList(), miscList, miscCB);
 
         }
 
@@ -67,8 +70,8 @@ namespace HeatCodes
          * Functions for browsing for a file/folder that's stored in a different location
          */
         private void BrowseForDrawing(object sender, EventArgs e) { BrowseHelper(drawingList, drawingCB, "file"); }
-       // private void BrowseForLaser(object sender, EventArgs e) { BrowseHelper(laserList, laserCB, "folder"); }
         private void BrowseForCertificate(object sender, EventArgs e) { BrowseHelper(certList, certCB, "file"); }
+        private void BrowseForMisc(object sender, EventArgs e) { BrowseHelper(miscList, miscCB, "file"); }
 
         private void BrowseHelper(Dictionary<string,string> target, ComboBox display, string type)
         {
@@ -101,6 +104,7 @@ namespace HeatCodes
         private void PreviewDocument(string path) { documentPreview.Navigate(path); }
         private void DrawingListListener(object sender, EventArgs e) { PreviewDocument(drawingList[drawingCB.SelectedItem.ToString()]); }
         private void CertListListener(object sender, EventArgs e) { PreviewDocument(certList[certCB.SelectedItem.ToString()]); }
+        private void MiscListListener(object sender, EventArgs e) { PreviewDocument(miscList[miscCB.SelectedItem.ToString()]); }
 
 
         /*
@@ -109,6 +113,7 @@ namespace HeatCodes
         private void ChangeDrawingPath(object sender, EventArgs e) { controller.DrawingPath = controller.BrowseFolder(); Save(); }
         private void ChangeLaserPath(object sender, EventArgs e) { controller.LaserPath = controller.BrowseFolder(); Save(); }
         private void ChangeCertificatePath(object sender, EventArgs e) { controller.CertPath = controller.BrowseFolder(); Save(); }
+        private void ChangeMiscPath(object sender, EventArgs e) { controller.MiscPath = controller.BrowseFolder(); Save(); }
 
 
         /*
@@ -116,10 +121,11 @@ namespace HeatCodes
          */
         private void Save()
         {
-            string[] output = new string[3];
+            string[] output = new string[4];
             output[0] = controller.DrawingPath;
             output[1] = controller.LaserPath;
             output[2] = controller.CertPath;
+            output[3] = controller.MiscPath;
 
             SettingsLoader.Save(output);
         }
@@ -150,6 +156,9 @@ namespace HeatCodes
 
 
                 split = split.Replace(".pdf", "");
+                split = split.Replace(".docx", "");
+                split = split.Replace(".txt", "");
+
 
                 return split;
             }
@@ -171,7 +180,8 @@ namespace HeatCodes
             output.Add("drawing", drawingCB.SelectedItem as string);
             output.Add("laser", laserCB.SelectedItem as string);
             output.Add("cert", certCB.SelectedItem as string);
-            output.Add("misc", miscText.Text);
+            output.Add("misc", miscCB.SelectedItem as string);
+            output.Add("note", noteText.Text);
 
             try
             {
@@ -182,6 +192,11 @@ namespace HeatCodes
                 MessageBox.Show(f.ErrorMessage);
             }
         }
+
+       
+
+
+      
 
 
        
