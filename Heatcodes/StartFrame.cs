@@ -193,6 +193,14 @@ namespace HeatCodes
             }
         }
 
+        /*
+         * Function specifically to disable a missed debug flag
+         */
+        private void MenuToggleDebug(object sender, EventArgs e)
+        {
+            DataAccessLayer.debug = false;
+        }
+
        
 
 
