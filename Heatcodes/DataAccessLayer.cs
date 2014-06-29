@@ -13,8 +13,7 @@ namespace HeatCodes
     class DataAccessLayer
     {
 
-        //global debug flag
-        public static bool debug = false;
+
 
 
         /*
@@ -22,7 +21,7 @@ namespace HeatCodes
          */
         public void LoadSettings()
         {
-            if(debug)
+            if(Global.debug)
             {
                 drawingPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\Produkt\Ritningar\";
                 laserPath = @"C:\Users\submarines\Documents\GitHub\HeatCodes\Tree\Produkt\Laser\";

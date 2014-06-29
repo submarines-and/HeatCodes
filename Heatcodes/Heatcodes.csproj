@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Controller.cs" />
     <Compile Include="DataAccessLayer.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="NetworkException.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="SettingsLoader.cs" />

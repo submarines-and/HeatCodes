@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Heatcodes;
 
 namespace HeatCodes
 {
@@ -28,7 +29,11 @@ namespace HeatCodes
             }
             catch (ArgumentOutOfRangeException)
             {
-                MessageBox.Show("Inga printers anslutna");
+                if (Global.debug)
+                {
+                    MessageBox.Show("Inga printers anslutna");
+
+                }
             }
         }
 
@@ -58,7 +63,10 @@ namespace HeatCodes
 
             string barcodeData = string.Format("{0} - Laser: {1} - Cert: {2} - Config: {3}", drawings, laser, cert, config);
 
-            MessageBox.Show(barcodeData);
+            if (Global.debug) 
+            {
+                MessageBox.Show(barcodeData);
+            }
                 
             label.SetObjectText("BARCODE", barcodeData);
             label.SetObjectText("TEXT", output["note"] as string);

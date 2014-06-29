@@ -122,26 +122,28 @@ namespace HeatCodes
                 newDocument = controller.BrowseFolder();
             }
 
-
-            string key = RemoveFullPath(newDocument, 1);
-            target.Add(key, newDocument);
-
             if (newDocument != null)
             {
-                if (display is ComboBox)
-                {
-                    Bind(target, display as ComboBox);
-                    (display as ComboBox).SelectedItem = key;
-                }
+                string key = RemoveFullPath(newDocument, 1);
+                target.Add(key, newDocument);
 
-                else if (display is ListBox)
+                if (newDocument != null)
                 {
-                    Bind(target, display as ListBox);
-                    (display as ListBox).SelectedItem = key;
+                    if (display is ComboBox)
+                    {
+                        Bind(target, display as ComboBox);
+                        (display as ComboBox).SelectedItem = key;
+                    }
+
+                    else if (display is ListBox)
+                    {
+                        Bind(target, display as ListBox);
+                        (display as ListBox).SelectedItem = key;
+                    }
+
                 }
- 
             }
-      
+        
 
         }
 
@@ -272,13 +274,13 @@ namespace HeatCodes
          */
         private void MenuToggleDebug(object sender, EventArgs e)
         {
-            if (DataAccessLayer.debug)
+            if (Global.debug)
             {
-                DataAccessLayer.debug = false;
+                Global.debug = false;
             }
             else
             {
-                DataAccessLayer.debug = true;
+                Global.debug = true;
             }
             CheckDebug();
            
@@ -288,7 +290,7 @@ namespace HeatCodes
          */
         private void CheckDebug()
         {
-            if (DataAccessLayer.debug)
+            if (Global.debug)
             {
                 debugLbl.Text = "Du är i debug-läge";
             }
