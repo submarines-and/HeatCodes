@@ -14,7 +14,7 @@ namespace HeatCodes
     {
 
         //global debug flag
-        public static bool debug = true;
+        public static bool debug = false;
 
 
         /*

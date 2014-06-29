@@ -22,7 +22,7 @@ namespace HeatCodes
         public Controller() { Printer = new Printer(); Dal = new DataAccessLayer();  }
 
         //printer
-        public void Print(Dictionary<string, string> output) { Printer.Print(output); }
+        public void Print(Dictionary<string, object> output) { Printer.Print(output); }
 
         //paths
         public string DrawingPath { get { return dal.DrawingPath; } set { dal.DrawingPath = value; } }

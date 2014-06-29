@@ -19,7 +19,7 @@ namespace HeatCodes
         private Controller controller;
 
         //constuctor
-        public StartFrame() { controller = new Controller(); InitializeComponent(); }
+        public StartFrame() { controller = new Controller(); InitializeComponent(); CheckDebug(); }
 
         private Dictionary<string, string> drawingList = new Dictionary<string, string>();
         private Dictionary<string, string> laserList = new Dictionary<string, string>();
@@ -33,11 +33,12 @@ namespace HeatCodes
         private void ConnectMenuListener(object sender, EventArgs e)
         {
             drawingList.Clear();
+            drawingListBox.Items.Clear();
             laserList.Clear();
             certList.Clear();
             miscList.Clear();
 
-            InitialBind(controller.DrawingList(), drawingList, drawingCB);
+            InitialBind(controller.DrawingList(), drawingList, drawingListBox);
             InitialBind(controller.LaserList(), laserList, laserCB);
             InitialBind(controller.CertList(), certList, certCB);
             InitialBind(controller.MiscList(), miscList, miscCB);
@@ -47,7 +48,7 @@ namespace HeatCodes
         /*
          * Binds combobox to a dictionary
          */
-        private void InitialBind(List<string> source, Dictionary<string, string> target, ComboBox display)
+        private void InitialBind(List<string> source, Dictionary<string, string> target, object display)
         {
             foreach (string s in source)
             {
@@ -60,20 +61,44 @@ namespace HeatCodes
         /*
          * Shared binding functionality
          */
-        private void Bind(Dictionary<string, string> target, ComboBox display)
+        private void Bind(Dictionary<string, string> target, object display)
         {
-            display.DataSource = new BindingList<string>(target.Keys.ToList());
+            if (display is ComboBox)
+            {
+                (display as ComboBox).DataSource = new BindingList<string>(target.Keys.ToList());
+            }
+            else if (display is ListBox)
+            {
+
+                foreach (string s in target.Keys)
+                {
+                    bool exists = false;
+
+                    foreach (string v in (display as ListBox).Items)
+                    {
+                        if (v == s) 
+                        {
+                            exists = true;
+                        }
+                    }
+                    if (!exists)
+                    {
+                        (display as ListBox).Items.Add(s);
+
+                    }
+                }
+            }
         }
 
         
         /*
          * Functions for browsing for a file/folder that's stored in a different location
          */
-        private void BrowseForDrawing(object sender, EventArgs e) { BrowseHelper(drawingList, drawingCB, "file"); }
+        private void BrowseForDrawing(object sender, EventArgs e) { BrowseHelper(drawingList, drawingListBox, "file"); }
         private void BrowseForCertificate(object sender, EventArgs e) { BrowseHelper(certList, certCB, "file"); }
         private void BrowseForMisc(object sender, EventArgs e) { BrowseHelper(miscList, miscCB, "file"); }
 
-        private void BrowseHelper(Dictionary<string,string> target, ComboBox display, string type)
+        private void BrowseHelper(Dictionary<string,string> target, object display, string type)
         {
             string newDocument = null;
 
@@ -87,13 +112,26 @@ namespace HeatCodes
                 newDocument = controller.BrowseFolder();
             }
 
+
+            string key = RemoveFullPath(newDocument, 1);
+            target.Add(key, newDocument);
+
             if (newDocument != null)
             {
-                string key = RemoveFullPath(newDocument, 1);
-                target.Add(key, newDocument);
-                Bind(target, display);
-                display.SelectedItem = key;
+                if (display is ComboBox)
+                {
+                    Bind(target, display as ComboBox);
+                    (display as ComboBox).SelectedItem = key;
+                }
+
+                else if (display is ListBox)
+                {
+                    Bind(target, display as ListBox);
+                    (display as ListBox).SelectedItem = key;
+                }
+ 
             }
+      
 
         }
 
@@ -102,9 +140,9 @@ namespace HeatCodes
          * Previews
          */
         private void PreviewDocument(string path) { documentPreview.Navigate(path); }
-        private void DrawingListListener(object sender, EventArgs e) { PreviewDocument(drawingList[drawingCB.SelectedItem.ToString()]); }
         private void CertListListener(object sender, EventArgs e) { PreviewDocument(certList[certCB.SelectedItem.ToString()]); }
         private void MiscListListener(object sender, EventArgs e) { PreviewDocument(miscList[miscCB.SelectedItem.ToString()]); }
+        private void DrawingListListener(object sender, EventArgs e) { PreviewDocument(drawingList[drawingListBox.SelectedItem.ToString()]); }
 
 
         /*
@@ -115,6 +153,25 @@ namespace HeatCodes
         private void ChangeCertificatePath(object sender, EventArgs e) { controller.CertPath = controller.BrowseFolder(); Save(); }
         private void ChangeMiscPath(object sender, EventArgs e) { controller.MiscPath = controller.BrowseFolder(); Save(); }
 
+        /*
+         * Add or remove drawings
+         */
+        private void AddDrawingButtonListener(object sender, EventArgs e)
+        {
+            if (drawingListBox.SelectedItem != null)
+            {
+                chosenDrawingsListBox.Items.Add(drawingListBox.SelectedItem);
+            }
+        }
+
+        private void RemoveDrawingButtonListener(object sender, EventArgs e)
+        {
+            if (chosenDrawingsListBox.SelectedItem != null)
+            {
+                chosenDrawingsListBox.Items.Remove(chosenDrawingsListBox.SelectedItem);
+            }
+
+        }
 
         /*
          * Saves current config to a textfile
@@ -175,13 +232,20 @@ namespace HeatCodes
       */
         private void PrintMenuListener(object sender, EventArgs e)
         {
-            Dictionary<string, string> output = new Dictionary<string, string>();
+            Dictionary<string, object> output = new Dictionary<string, object>();
 
-            output.Add("drawing", drawingCB.SelectedItem as string);
             output.Add("laser", laserCB.SelectedItem as string);
             output.Add("cert", certCB.SelectedItem as string);
             output.Add("misc", miscCB.SelectedItem as string);
             output.Add("note", noteText.Text);
+
+            List<string> drawings = new List<string>();
+            foreach (string s in chosenDrawingsListBox.Items)
+            {
+                drawings.Add(s);
+            }
+            output.Add("drawing", drawings);
+
 
             try
             {
@@ -198,8 +262,36 @@ namespace HeatCodes
          */
         private void MenuToggleDebug(object sender, EventArgs e)
         {
-            DataAccessLayer.debug = false;
+            if (DataAccessLayer.debug)
+            {
+                DataAccessLayer.debug = false;
+            }
+            else
+            {
+                DataAccessLayer.debug = true;
+            }
+            CheckDebug();
+           
         }
+        /*
+         * Help function for checking debug status
+         */
+        private void CheckDebug()
+        {
+            if (DataAccessLayer.debug)
+            {
+                debugLbl.Text = "Du är i debug-läge";
+            }
+            else
+            {
+                debugLbl.Text = "";
+            }
+
+        }
+
+        
+
+       
 
        
 

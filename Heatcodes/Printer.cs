@@ -33,14 +33,35 @@ namespace HeatCodes
         }
 
 
-        public void Print(Dictionary<string, string> output)
+        public void Print(Dictionary<string, object> output)
         {
             var label = DYMO.Label.Framework.Label.Open(Application.GetResourceStream(new Uri(barcodeTemplateName, UriKind.Relative)).Stream);
 
-            string barcodeData = string.Format("{0} - Laser: {1} - Cert: {2} - Misc: {3}", output["drawing"], output["laser"], output["cert"], output["misc"]);
+            string laser = output["laser"] as string;
+            string cert = output["cert"] as string;
+            string config = output["misc"] as string;
+            
+            string drawings = "";
+            List<string> drawingsList = output["drawing"] as List<string>;
+            int size = drawingsList.Count;
+            int i = 1;
+            foreach(string s in drawingsList)
+            {
+                drawings += s;
+                if(i < size)
+                {
+                    drawings += ", ";
+                }
+
+                i++;
+            }
+
+            string barcodeData = string.Format("{0} - Laser: {1} - Cert: {2} - Config: {3}", drawings, laser, cert, config);
+
+            MessageBox.Show(barcodeData);
                 
             label.SetObjectText("BARCODE", barcodeData);
-            label.SetObjectText("TEXT", output["note"]);
+            label.SetObjectText("TEXT", output["note"] as string);
 
             try
             {

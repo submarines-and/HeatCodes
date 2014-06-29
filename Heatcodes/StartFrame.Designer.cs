@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartFrame));
-            this.drawingCB = new System.Windows.Forms.ComboBox();
             this.drawingLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.miscLabel = new System.Windows.Forms.Label();
@@ -56,30 +55,24 @@
             this.laserCB = new System.Windows.Forms.ComboBox();
             this.browseMisc = new System.Windows.Forms.Button();
             this.miscCB = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.debugLbl = new System.Windows.Forms.Label();
+            this.cfgLbl = new System.Windows.Forms.Label();
+            this.drawingListBox = new System.Windows.Forms.ListBox();
+            this.chosenDrawingsListBox = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // drawingCB
-            // 
-            this.drawingCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.drawingCB.FormattingEnabled = true;
-            this.drawingCB.Location = new System.Drawing.Point(908, 159);
-            this.drawingCB.Margin = new System.Windows.Forms.Padding(2);
-            this.drawingCB.Name = "drawingCB";
-            this.drawingCB.Size = new System.Drawing.Size(146, 21);
-            this.drawingCB.TabIndex = 1;
-            this.drawingCB.SelectedIndexChanged += new System.EventHandler(this.DrawingListListener);
             // 
             // drawingLabel
             // 
             this.drawingLabel.AutoSize = true;
-            this.drawingLabel.Location = new System.Drawing.Point(843, 162);
+            this.drawingLabel.Location = new System.Drawing.Point(854, 201);
             this.drawingLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.drawingLabel.Name = "drawingLabel";
-            this.drawingLabel.Size = new System.Drawing.Size(40, 13);
+            this.drawingLabel.Size = new System.Drawing.Size(49, 13);
             this.drawingLabel.TabIndex = 3;
-            this.drawingLabel.Text = "Ritning";
+            this.drawingLabel.Text = "Ritningar";
             // 
             // pictureBox1
             // 
@@ -96,7 +89,7 @@
             // miscLabel
             // 
             this.miscLabel.AutoSize = true;
-            this.miscLabel.Location = new System.Drawing.Point(841, 314);
+            this.miscLabel.Location = new System.Drawing.Point(842, 497);
             this.miscLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.miscLabel.Name = "miscLabel";
             this.miscLabel.Size = new System.Drawing.Size(60, 13);
@@ -105,7 +98,7 @@
             // 
             // noteText
             // 
-            this.noteText.Location = new System.Drawing.Point(907, 311);
+            this.noteText.Location = new System.Drawing.Point(908, 494);
             this.noteText.Margin = new System.Windows.Forms.Padding(2);
             this.noteText.Name = "noteText";
             this.noteText.Size = new System.Drawing.Size(220, 20);
@@ -122,7 +115,7 @@
             // 
             // browseDrawing
             // 
-            this.browseDrawing.Location = new System.Drawing.Point(1059, 159);
+            this.browseDrawing.Location = new System.Drawing.Point(1150, 309);
             this.browseDrawing.Margin = new System.Windows.Forms.Padding(2);
             this.browseDrawing.Name = "browseDrawing";
             this.browseDrawing.Size = new System.Drawing.Size(21, 19);
@@ -214,7 +207,7 @@
             // 
             // browseCert
             // 
-            this.browseCert.Location = new System.Drawing.Point(1058, 202);
+            this.browseCert.Location = new System.Drawing.Point(1059, 370);
             this.browseCert.Margin = new System.Windows.Forms.Padding(2);
             this.browseCert.Name = "browseCert";
             this.browseCert.Size = new System.Drawing.Size(21, 19);
@@ -227,7 +220,7 @@
             // 
             this.certCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.certCB.FormattingEnabled = true;
-            this.certCB.Location = new System.Drawing.Point(908, 202);
+            this.certCB.Location = new System.Drawing.Point(909, 370);
             this.certCB.Margin = new System.Windows.Forms.Padding(2);
             this.certCB.Name = "certCB";
             this.certCB.Size = new System.Drawing.Size(146, 21);
@@ -237,7 +230,7 @@
             // certLabel
             // 
             this.certLabel.AutoSize = true;
-            this.certLabel.Location = new System.Drawing.Point(842, 205);
+            this.certLabel.Location = new System.Drawing.Point(854, 373);
             this.certLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.certLabel.Name = "certLabel";
             this.certLabel.Size = new System.Drawing.Size(48, 13);
@@ -247,7 +240,7 @@
             // laserLbl
             // 
             this.laserLbl.AutoSize = true;
-            this.laserLbl.Location = new System.Drawing.Point(842, 240);
+            this.laserLbl.Location = new System.Drawing.Point(869, 411);
             this.laserLbl.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.laserLbl.Name = "laserLbl";
             this.laserLbl.Size = new System.Drawing.Size(33, 13);
@@ -258,7 +251,7 @@
             // 
             this.laserCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.laserCB.FormattingEnabled = true;
-            this.laserCB.Location = new System.Drawing.Point(907, 240);
+            this.laserCB.Location = new System.Drawing.Point(908, 408);
             this.laserCB.Margin = new System.Windows.Forms.Padding(2);
             this.laserCB.Name = "laserCB";
             this.laserCB.Size = new System.Drawing.Size(146, 21);
@@ -266,7 +259,7 @@
             // 
             // browseMisc
             // 
-            this.browseMisc.Location = new System.Drawing.Point(1059, 276);
+            this.browseMisc.Location = new System.Drawing.Point(1060, 444);
             this.browseMisc.Margin = new System.Windows.Forms.Padding(2);
             this.browseMisc.Name = "browseMisc";
             this.browseMisc.Size = new System.Drawing.Size(21, 19);
@@ -279,21 +272,69 @@
             // 
             this.miscCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.miscCB.FormattingEnabled = true;
-            this.miscCB.Location = new System.Drawing.Point(907, 276);
+            this.miscCB.Location = new System.Drawing.Point(908, 444);
             this.miscCB.Margin = new System.Windows.Forms.Padding(2);
             this.miscCB.Name = "miscCB";
             this.miscCB.Size = new System.Drawing.Size(146, 21);
             this.miscCB.TabIndex = 20;
             this.miscCB.SelectedIndexChanged += new System.EventHandler(this.MiscListListener);
             // 
-            // label1
+            // debugLbl
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(923, 439);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "label1";
+            this.debugLbl.AutoSize = true;
+            this.debugLbl.Location = new System.Drawing.Point(1056, 98);
+            this.debugLbl.Name = "debugLbl";
+            this.debugLbl.Size = new System.Drawing.Size(52, 13);
+            this.debugLbl.TabIndex = 22;
+            this.debugLbl.Text = "Debug-lbl";
+            // 
+            // cfgLbl
+            // 
+            this.cfgLbl.AutoSize = true;
+            this.cfgLbl.Location = new System.Drawing.Point(834, 447);
+            this.cfgLbl.Name = "cfgLbl";
+            this.cfgLbl.Size = new System.Drawing.Size(69, 13);
+            this.cfgLbl.TabIndex = 23;
+            this.cfgLbl.Text = "Konfiguration";
+            // 
+            // drawingListBox
+            // 
+            this.drawingListBox.FormattingEnabled = true;
+            this.drawingListBox.Location = new System.Drawing.Point(857, 233);
+            this.drawingListBox.Name = "drawingListBox";
+            this.drawingListBox.Size = new System.Drawing.Size(120, 95);
+            this.drawingListBox.TabIndex = 24;
+            this.drawingListBox.SelectedIndexChanged += new System.EventHandler(this.DrawingListListener);
+            // 
+            // chosenDrawingsListBox
+            // 
+            this.chosenDrawingsListBox.FormattingEnabled = true;
+            this.chosenDrawingsListBox.Location = new System.Drawing.Point(1025, 233);
+            this.chosenDrawingsListBox.Name = "chosenDrawingsListBox";
+            this.chosenDrawingsListBox.Size = new System.Drawing.Size(120, 95);
+            this.chosenDrawingsListBox.TabIndex = 25;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(982, 244);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(38, 19);
+            this.button1.TabIndex = 26;
+            this.button1.Text = "-->";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.AddDrawingButtonListener);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(982, 284);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(38, 19);
+            this.button2.TabIndex = 27;
+            this.button2.Text = "<--";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.RemoveDrawingButtonListener);
             // 
             // StartFrame
             // 
@@ -301,7 +342,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1232, 623);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.chosenDrawingsListBox);
+            this.Controls.Add(this.drawingListBox);
+            this.Controls.Add(this.cfgLbl);
+            this.Controls.Add(this.debugLbl);
             this.Controls.Add(this.browseMisc);
             this.Controls.Add(this.miscCB);
             this.Controls.Add(this.browseCert);
@@ -315,7 +361,6 @@
             this.Controls.Add(this.miscLabel);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.drawingLabel);
-            this.Controls.Add(this.drawingCB);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Menu = this.mainMenu1;
@@ -329,7 +374,6 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox drawingCB;
         private System.Windows.Forms.Label drawingLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label miscLabel;
@@ -355,7 +399,12 @@
         private System.Windows.Forms.ComboBox laserCB;
         private System.Windows.Forms.Button browseMisc;
         private System.Windows.Forms.ComboBox miscCB;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label debugLbl;
+        private System.Windows.Forms.Label cfgLbl;
+        private System.Windows.Forms.ListBox drawingListBox;
+        private System.Windows.Forms.ListBox chosenDrawingsListBox;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
