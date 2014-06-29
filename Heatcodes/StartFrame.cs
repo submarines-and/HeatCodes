@@ -32,16 +32,26 @@ namespace HeatCodes
          */
         private void ConnectMenuListener(object sender, EventArgs e)
         {
-            drawingList.Clear();
-            drawingListBox.Items.Clear();
-            laserList.Clear();
-            certList.Clear();
-            miscList.Clear();
+            try
+            {
+                controller.LoadSettings();
 
-            InitialBind(controller.DrawingList(), drawingList, drawingListBox);
-            InitialBind(controller.LaserList(), laserList, laserCB);
-            InitialBind(controller.CertList(), certList, certCB);
-            InitialBind(controller.MiscList(), miscList, miscCB);
+                drawingList.Clear();
+                drawingListBox.Items.Clear();
+                laserList.Clear();
+                certList.Clear();
+                miscList.Clear();
+
+                InitialBind(controller.DrawingList(), drawingList, drawingListBox);
+                InitialBind(controller.LaserList(), laserList, laserCB);
+                InitialBind(controller.CertList(), certList, certCB);
+                InitialBind(controller.MiscList(), miscList, miscCB);
+            }
+            catch (NetworkException n)
+            {
+                MessageBox.Show(n.ErrorMessage);
+            }
+            
 
         }
 

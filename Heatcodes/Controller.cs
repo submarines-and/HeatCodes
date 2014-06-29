@@ -40,6 +40,9 @@ namespace HeatCodes
         //browsing
         public string BrowseFile(){ return dal.BrowseFile();}
         public String BrowseFolder() { return dal.BrowseFolder(); }
+
+        //setting
+        public void LoadSettings() { dal.LoadSettings(); }
        
 
 

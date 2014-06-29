@@ -20,7 +20,7 @@ namespace HeatCodes
         /*
          * Constructor; currently only sets default paths
          */
-        public DataAccessLayer()
+        public void LoadSettings()
         {
             if(debug)
             {

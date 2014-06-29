@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using HeatCodes;
 
 namespace Heatcodes
 {
@@ -25,14 +27,22 @@ namespace Heatcodes
 
         public static void LoadSettings()
         {
-            StreamReader sr = File.OpenText("config.txt");
+            try
+            {
+                StreamReader sr = File.OpenText("config.txt");
+                DrawingPath = sr.ReadLine();
+                LaserPath = sr.ReadLine();
+                CertPath = sr.ReadLine();
+                MiscPath = sr.ReadLine();
 
-            DrawingPath = sr.ReadLine();
-            LaserPath = sr.ReadLine();
-            CertPath = sr.ReadLine();
-            MiscPath = sr.ReadLine();
+                sr.Close();
+            }
+            catch (FileNotFoundException)
+            {
+                throw new NetworkException("Config-fil för paths saknas");
+            }
 
-            sr.Close();
+           
         }
 
 
